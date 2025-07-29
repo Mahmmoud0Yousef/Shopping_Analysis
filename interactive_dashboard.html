@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🛍️ Shopping Trends Interactive Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header h1 {
+            color: #2c3e50;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            color: #7f8c8d;
+            font-size: 1.1rem;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .nav {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .nav h2 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .nav-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        
+        .nav-item {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-weight: 500;
+        }
+        
+        .nav-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+        
+        .plot-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            min-height: 600px;
+        }
+        
+        .plot-title {
+            color: #2c3e50;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            text-align: center;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+        
+        .plot-frame {
+            width: 100%;
+            height: 550px;
+            border: none;
+            border-radius: 10px;
+        }
+        
+        .back-btn {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .stat-card {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .stat-label {
+            color: #7f8c8d;
+            margin-top: 5px;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .nav-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🛍️ Shopping Trends Interactive Dashboard</h1>
+        <p>Comprehensive E-commerce Analytics & Customer Behavior Insights</p>
+    </div>
+    
+    <div class="container">
+        <!-- Navigation Section -->
+        <div class="nav" id="nav-section">
+            <h2>📊 Interactive Visualizations</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">3,900+</div>
+                    <div class="stat-label">Customer Records</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">19</div>
+                    <div class="stat-label">Data Features</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">20</div>
+                    <div class="stat-label">Interactive Charts</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">5</div>
+                    <div class="stat-label">Analysis Categories</div>
+                </div>
+            </div>
+            
+            <div class="nav-grid">
+                <a href="#" class="nav-item" onclick="showPlot('01_scatter_previous_purchases.html', 'Previous Purchases vs Purchase Amount')">
+                    📈 Scatter Plot Analysis
+                </a>
+                <a href="#" class="nav-item" onclick="showPlot('02_box_purchase_amount_gender.html', 'Purchase Amount by Gender')">
+                    📦 Box Plot - Gender Analysis
+                </a>
+                <a href="#" class="nav-item" onclick="showPlot('03_box_purchase_amount_discount.html', 'Purchase Amount by Discount')">
+                    💰 Box Plot - Discount Analysis
+                </a>
+                <a href="#" class="nav-item" onclick="showPlot('04_histogram_purchase_amount_gender.html', 'Purchase Amount Distribution')">
+                    📊 Histogram - Gender Distribution
+                </a>
+                <a href="#" class="nav-item" onclick="showPlot('05_histogram_purchase_amount_age_size.html', 'Age & Size Analysis')">
+                    👥 Age & Size Distribution
+                </a>
+                <a href="#" class="nav-item" onclick="showPlot('06_histogram_purchase_amount_payment.html', 'Payment Method Analysis')">
+                    💳 Payment Method Distribution
+                </a>
+                <a href="#" class="nav-item" onclick="showPlot('07_histogram_purchase_amount_frequency.html', 'Purchase Frequency')">
+                    ⏰ Purchase Frequency Analysis
+                </a>
+                <a href="#" class="nav-item" onclick="showPlot('08_histogram_purchase_amount_season.html', 'Seasonal Trends')">
+                    🌸 Seasonal Purchase Patterns
+                </a>
+                <a href="#" class="nav-item" onclick="showPlot('09_histogram_review_rating_shipping.html', 'Review Rating by Shipping')">
+                    ⭐ Review Rating Analysis
+                </a>
+                <a href="#" class="nav-item" onclick="showPlot('10_histogram_purchase_amount_discount.html', 'Discount Impact')">
+                    🎯 Discount Impact Analysis
+                </a>
+                <a href="#" class="nav-item" onclick="showPlot('11_pie_shipping_type.html', 'Shipping Type Distribution')">
+                    🚚 Shipping Type Pie Chart
+                </a>
+                <a href="#" class="nav-item" onclick="showPlot('12_pie_subscription_status.html', 'Subscription Status')">
+                    📋 Subscription Status Analysis
+                </a>
+                <a href="#" class="nav-item" onclick="showPlot('13_pie_shipping_type_review.html', 'Shipping & Reviews')">
+                    📦 Shipping & Review Correlation
+                </a>
+                <a href="#" class="nav-item" onclick="showPlot('14_bar_category_performance.html', 'Category Performance')">
+                    📊 Category Performance Bar Chart
+                </a>
+                <a href="#" class="nav-item" onclick="showPlot('15_bar_age_group_performance.html', 'Age Group Analysis')">
+                    👴 Age Group Performance
+                </a>
+                <a href="#" class="nav-item" onclick="showPlot('16_heatmap_correlation.html', 'Correlation Matrix')">
+                    🔥 Correlation Heatmap
+                </a>
+                <a href="#" class="nav-item" onclick="showPlot('17_scatter_matrix.html', 'Scatter Matrix')">
+                    🔗 Variable Relationships
+                </a>
+                <a href="#" class="nav-item" onclick="showPlot('18_3d_scatter.html', '3D Scatter Plot')">
+                    🌐 3D Scatter Analysis
+                </a>
+                <a href="#" class="nav-item" onclick="showPlot('19_sunburst_category_gender_season.html', 'Sunburst Chart')">
+                    ☀️ Multi-dimensional Analysis
+                </a>
+                <a href="#" class="nav-item" onclick="showPlot('20_treemap_category_gender.html', 'Treemap Visualization')">
+                    🌳 Hierarchical Data View
+                </a>
+            </div>
+        </div>
+        
+        <!-- Plot Display Section -->
+        <div class="plot-container hidden" id="plot-section">
+            <button class="back-btn" onclick="showNav()">← Back to Navigation</button>
+            <div class="plot-title" id="plot-title"></div>
+            <iframe class="plot-frame" id="plot-frame"></iframe>
+        </div>
+    </div>
+    
+    <script>
+        function showPlot(filename, title) {
+            document.getElementById('nav-section').classList.add('hidden');
+            document.getElementById('plot-section').classList.remove('hidden');
+            document.getElementById('plot-title').textContent = title;
+            document.getElementById('plot-frame').src = 'static_plots/' + filename;
+        }
+        
+        function showNav() {
+            document.getElementById('plot-section').classList.add('hidden');
+            document.getElementById('nav-section').classList.remove('hidden');
+            document.getElementById('plot-frame').src = '';
+        }
+    </script>
+</body>
+</html> 
